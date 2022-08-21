@@ -12,7 +12,6 @@ variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: 'ba003536-a899-4460-b468-bb4993eb504a'
   imageRepository: 'pyimage'
-  containerRegistry: 'simplecontreg.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
 
@@ -50,5 +49,5 @@ stages:
     - task: AzureWebAppContainer@1
       inputs:
         azureSubscription: 'RG connection'
-        appName: 'pyApp777'
+        appName: $(WebAppName)
         containers: '$(RegistryName)/$(webRepository):$(build.buildId)'
