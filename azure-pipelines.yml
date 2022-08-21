@@ -43,6 +43,8 @@ stages:
     displayName: 'Deplo job'
     pool:
       vmImage: $(vmImageName)
+    variables:
+    - group: Release
     steps:
     - task: AzureWebAppContainer@1
       inputs:
