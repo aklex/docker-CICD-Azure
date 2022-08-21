@@ -37,10 +37,10 @@ stages:
 
 - stage: 'Deploy'
   displayName: 'Deploy job'
-  dependsOn: Build
+  dependsOn: Deploy
   jobs:
   - job: 'Deploy'
-    displayName: 'Deplo job'
+    displayName: 'Deploy job'
     pool:
       vmImage: $(vmImageName)
     variables:
@@ -50,4 +50,4 @@ stages:
       inputs:
         azureSubscription: 'RG connection'
         appName: $(WebAppName)
-        containers: '$(RegistryName)/$(webRepository):$(build.buildId)'
+        containers: '$(RegistryName)/$(imageRepository):$(build.buildId)'
