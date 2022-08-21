@@ -37,3 +37,18 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+
+- stage: 'Deploy'
+  displayName: 'Deploy job'
+  dependsOn: Build
+  jobs:
+  - job: 'Deploy'
+    displayName: 'Deplo job'
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: AzureWebAppContainer@1
+      inputs:
+        azureSubscription: 'RG connection'
+        appName: 'pyApp777'
+        containers: '$(RegistryName)/$(webRepository):$(build.buildId)'
